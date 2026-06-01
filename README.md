@@ -1,4 +1,4 @@
-# Expo
+# Linux
 ## Server-setup
 
 1. install
