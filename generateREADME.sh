@@ -1,4 +1,4 @@
-echo "# Expo" > ../README.md
+echo "# Linux" > ../README.md
 for file in *; do
     [ "$file" = "README.md" ] && continue
     [ "$file" = "generateREADME.sh" ] && continue
