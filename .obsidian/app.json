@@ -1,0 +1,8 @@
+{
+  "promptDelete": true,
+  "newFileLocation": "current",
+  "attachmentFolderPath": "./attachments",
+  "alwaysUpdateLinks": true,
+  "showUnsupportedFiles": false,
+  "uriCallbacks": true
+}
