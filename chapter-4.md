@@ -674,21 +674,21 @@ CHAPTER 4 — KEY TAKEAWAYS
 CHAPTER 4 COMMAND CHEAT SHEET
 ═══════════════════════════════════════════════════════════════════════════════
 
-GREP                            SED                             AWK
-──────────────────────         ─────────────────────         ───────────────────
-grep "x" f         Search       sed 's/old/new/' f  Replace 1st sed-like: awk '/x/' f
-grep -i "x" f       Case-ins    sed 's/o/n/g' f      Replace all  awk -F: '{print $1}'
-grep -v "x" f       Invert      sed -i 's/o/n/g' f   Edit in-place awk '$3>100' f
-grep -c "x" f       Count       sed '/x/d' f         Delete lines  awk '{sum+=$1} END{print sum}'
-grep -r "x" dir     Recursive   sed -n '5,10p' f     Print range   NF / NR / $0 / $NF
+GREP                            SED                                    AWK
+──────────────────────         ─────────────────────                ───────────────────
+grep "x" f         Search       sed 's/old/new/' f  Replace 1st        sed-like: awk '/x/' f
+grep -i "x" f       Case-ins    sed 's/o/n/g' f      Replace all         awk -F: '{print $1}'
+grep -v "x" f       Invert      sed -i 's/o/n/g' f   Edit in-place        awk '$3>100' f
+grep -c "x" f       Count       sed '/x/d' f         Delete lines         awk '{sum+=$1} END{print sum}'
+grep -r "x" dir     Recursive   sed -n '5,10p' f     Print range          NF / NR / $0 / $NF
 
-CUT / SORT / UNIQ               PIPES & REDIRECTS               OTHER TOOLS
-──────────────────────         ─────────────────────         ───────────────────
-cut -d: -f1 f       Field 1     cmd1 | cmd2          Pipe         tr 'a-z' 'A-Z'   Case
-sort f              Alpha sort  cmd > file           Overwrite    tee file          Split out
-sort -n f           Numeric     cmd >> file          Append       xargs cmd         Args from pipe
-sort -k2 f          By column   cmd 2> file           Errors only  paste f1 f2      Merge cols
-uniq -c             Count dups  cmd > /dev/null 2>&1  Silence all  diff f1 f2       Compare
+CUT / SORT / UNIQ                      PIPES & REDIRECTS                      OTHER TOOLS
+──────────────────────                ─────────────────────                ───────────────────
+cut -d: -f1 f       Field 1            cmd1 | cmd2          Pipe                tr 'a-z' 'A-Z'   Case
+sort f              Alpha sort         cmd > file           Overwrite           tee file          Split out
+sort -n f           Numeric            cmd >> file          Append              xargs cmd         Args from pipe
+sort -k2 f          By column          cmd 2> file           Errors only         paste f1 f2      Merge cols
+uniq -c             Count dups         cmd > /dev/null 2>&1  Silence all         diff f1 f2       Compare
 
 ═══════════════════════════════════════════════════════════════════════════════
 ```
