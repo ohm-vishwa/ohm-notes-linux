@@ -590,8 +590,8 @@ THE MOUNTING CONCEPT
    │   │   │                            │   │   │
   etc home mnt                        etc home mnt
        │    │ (empty folder)               │    │
-                                            │  usb/ ◄── now shows USB
-                                            │     ├── photo.jpg
+                                           │  usb/ ◄── now shows USB
+                                           │     ├── photo.jpg
        [USB Drive]                         │     └── document.pdf
        /dev/sdb1                           │
        (separate filesystem,                    USB drive's files now
