@@ -37,7 +37,7 @@ That's it. Everything else is just detail on top of this idea.
 
 Think of the motherboard as a **city**. Every component (CPU, RAM, storage) is a building in that city, connected by roads (called **buses**).
 
-![](/img/motherboard.png)
+![](/img/ch-1/motherboard.png)
 
 ```txt
 ┌─────────────────────────────────────────────────────────────────┐
@@ -131,6 +131,8 @@ Cache L3:                8 MiB
 **RAM = Random Access Memory**
 
 RAM is your computer's **workspace**. When you open Firefox, the program is **copied from disk into RAM** so the CPU can access it fast.
+
+![](/img/ch-1/why-ram-matters.png)
 
 ```
 Why RAM Matters:
@@ -294,6 +296,8 @@ BIOS vs UEFI
 
 This is one of the most important things to understand as a Linux admin. When you press power:
 
+![](/img/ch-1/linux-boot-process.png)
+
 ```
 THE LINUX BOOT PROCESS
 ═══════════════════════════════════════════════════════════════════
@@ -387,6 +391,7 @@ graphical.target reached after 8.423s in userspace.
 ## 🏗️ The OS — The Manager Between You and Hardware
 
 An Operating System (OS) is software that:
+![](/img/ch-1/without-an-os.png)
 
 ```
 WITHOUT AN OS                    WITH AN OS
@@ -428,6 +433,8 @@ WITHOUT AN OS                    WITH AN OS
 ## 🫀 The Kernel — The Heart of Linux
 
 The **kernel** is the core of the OS. Everything else (shell, apps, desktop) is built on top of it.
+
+![](/img/ch-1/linux-system-layer.png)
 
 ```
 LINUX SYSTEM LAYERS
@@ -518,6 +525,7 @@ GNU/Linux       → It's GNU tools + Linux kernel
 ## 🔐 User Space vs Kernel Space
 
 This is a CRITICAL concept that shows up in interviews constantly.
+![](/img/ch-1/user-space-vs-kernel-space.png)
 
 ```
 USER SPACE vs KERNEL SPACE
@@ -682,6 +690,7 @@ The Linux kernel uses the **GPL v2 (GNU General Public License v2)**. This means
 ## 🏛️ The Complete Linux Architecture
 
 Let's build the complete picture layer by layer:
+![](/img/ch-1/complete-linux-archecture.png)
 
 ```
 COMPLETE LINUX ARCHITECTURE (Bottom to Top)
