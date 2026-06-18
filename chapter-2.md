@@ -783,28 +783,7 @@ CHAPTER 2 — KEY TAKEAWAYS
 
 ## 📌 Quick Reference Cheat Sheet
 
-```
-CHAPTER 2 COMMAND CHEAT SHEET
-═══════════════════════════════════════════════════════════════════════════════
-
-DIRECTORY EXPLORATION          INODES & LINKS                 MOUNTING
-──────────────────────         ─────────────────────         ───────────────────
-tree -L 2 /etc   Tree view     ls -i file        Inode #      mount             List all
-man hier         FHS manual    ls -li            Inode + perm df -h              Disk usage
-ls -l /          Top level     stat file         Full meta    findmnt           Clean table
-                                ln a b            Hard link    sudo mount dev mp Mount manually
-PROC & SYS                     ln -s a b         Soft link    sudo umount mp    Unmount
-──────────────────────         df -i             Inode usage  cat /etc/fstab    Auto-mount cfg
-cat /proc/cpuinfo  CPU info                                    sudo mount -a    Test fstab
-cat /proc/meminfo  RAM info    DISK USAGE
-cat /proc/uptime   Uptime      ─────────────────────         FILESYSTEM TYPES
-ls /sys/class/net  NICs        df -h    Free space (disk)    ───────────────────
-sysctl -a          Tunables    du -sh   Used space (folder)  sudo blkid        UUID + type
-sysctl -w x=1       Set live   du -sh /* Per-folder sizes     lsblk -f          Tree + fs type
-                                                               sudo mkfs.ext4    Format (! data loss)
-
-═══════════════════════════════════════════════════════════════════════════════
-```
+![](/img/ch-2/chapter-2-commands-cheet-sheet.png)
 
 ## ❓ Chapter 2 Interview Questions
 
