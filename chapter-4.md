@@ -58,23 +58,7 @@ WHY THIS MATTERS IN REAL LIFE
 
 A pipe takes the **output** of one command and feeds it as the **input** of the next command.
 
-```
-THE PIPE CONCEPT
-═══════════════════════════════════════════════════════════════════
-
-  command1  |  command2  |  command3
-     │            │            │
-     │   output   │   output   │
-     └───────────►└───────────►└──► final result
-
-  Example:
-  cat access.log | grep "404" | wc -l
-     │                │            │
-     │ shows all      │ filters    │ counts how
-     │ lines          │ only 404s  │ many 404s
-
-═══════════════════════════════════════════════════════════════════
-```
+![](/img/ch-4/the-pipe-concept.png)
 
 ```bash
 # Real pipeline examples
