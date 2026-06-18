@@ -46,6 +46,8 @@ In Linux, your USB drive, your second hard disk, even a remote network folder �
 
 ## 🌲 The Linux Directory Tree (Visualized)
 
+![](/img/ch-2/the-linux-file-system-tree.png)
+
 ```
 THE LINUX FILESYSTEM TREE
 ═══════════════════════════════════════════════════════════════════════
@@ -406,6 +408,7 @@ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq   # CPU0's current spe
 This is one of THE most important Linux concepts. Many beginners never truly understand this — but you will, right now.
 
 > **The filename is NOT the file. The filename is just a label pointing to the real file, which is identified by a number called the inode.**
+> ![](/img/ch-2/the-inode-concept.png)
 
 ```
 THE INODE CONCEPT
@@ -493,7 +496,7 @@ HARD LINK vs SOFT LINK (SYMLINK)
 
   file.txt ──┐                       file.txt
              ├──► Inode #884521       (real file, inode #884521)
-  link.txt ──┘                            ▲
+  link.txt ──┘                             ▲
                                            │ (just a pointer/path)
   Both names point to the           shortcut.txt
   SAME inode — they are              (different inode, #991022,
@@ -577,6 +580,7 @@ sudo ln -sf /usr/bin/python3.12 /usr/bin/python3   # Switch the symlink!
 Remember: Linux has only ONE tree, starting at `/`. So how does a second disk, USB drive, or network folder become accessible?
 
 **Answer: Mounting** — attaching a storage device's filesystem to a specific folder (called a **mount point**) inside the existing tree.
+![](//img/ch-2/the-mounting-concept.png)
 
 ```
 THE MOUNTING CONCEPT
