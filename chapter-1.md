@@ -39,26 +39,6 @@ Think of the motherboard as a **city**. Every component (CPU, RAM, storage) is a
 
 ![](/img/ch-1/motherboard.png)
 
-```txt
-┌─────────────────────────────────────────────────────────────────┐
-│                        MOTHERBOARD                              │
-│                                                                 │
-│  ┌──────────┐    ┌──────────┐    ┌──────────────────────────┐   │
-│  │   CPU    │◄──►│   RAM    │    │      PCIe SLOTS          │   │
-│  │(The Brain│    │(Memory)  │    │  [GPU] [NIC] [SSD]       │   │
-│  │          │    │          │    └──────────────────────────┘   │
-│  └────┬─────┘    └────┬─────┘                                   │
-│       │               │                                         │
-│  ─────┴───────────────┴──────── SYSTEM BUS ─────────────────    │
-│                                                                 │
-│  ┌──────────┐    ┌──────────┐    ┌──────────┐                   │
-│  │  BIOS/   │    │  SATA    │    │   USB    │                   │
-│  │  UEFI    │    │  Ports   │    │  Ports   │                   │
-│  │  Chip    │    │ (Drives) │    │          │                   │
-│  └──────────┘    └──────────┘    └──────────┘                   │
-└─────────────────────────────────────────────────────────────────┘
-```
-
 ---
 
 ## ⚙️ The CPU — The Brain
@@ -133,22 +113,6 @@ Cache L3:                8 MiB
 RAM is your computer's **workspace**. When you open Firefox, the program is **copied from disk into RAM** so the CPU can access it fast.
 
 ![](/img/ch-1/why-ram-matters.png)
-
-```
-Why RAM Matters:
-════════════════════════════════════════════════════════
-  DISK (SSD):  Fast, but still 10,000x slower than RAM
-  RAM:         Super fast — CPU can read it in nanoseconds
-  CPU Cache:   Even faster — but only a few MB
-
-  Think of it like this:
-  ┌────────┐     ┌───────┐     ┌───────────┐
-  │  DISK  │────►│  RAM  │────►│CPU Cache  │────► CPU
-  │ (TB)   │     │ (GB)  │     │ (MB/KB)   │
-  │ Slow   │     │ Fast  │     │ Very Fast │
-  └────────┘     └───────┘     └───────────┘
-════════════════════════════════════════════════════════
-```
 
 ### Real World: Check RAM in Linux
 
@@ -298,61 +262,6 @@ This is one of the most important things to understand as a Linux admin. When yo
 
 ![](/img/ch-1/linux-boot-process.png)
 
-```
-THE LINUX BOOT PROCESS
-═══════════════════════════════════════════════════════════════════
-
-  PRESS POWER BUTTON
-         │
-         ▼
-  ┌─────────────────────────────────────────────────────────┐
-  │  STEP 1: BIOS/UEFI                                      │
-  │  • CPU wakes up and runs BIOS/UEFI from ROM chip        │
-  │  • BIOS runs POST (Power-On Self Test)                  │
-  │  • Checks CPU, RAM, keyboard, storage                   │
-  │  • Finds the bootable disk                              │
-  └─────────────────────┬───────────────────────────────────┘
-                        │
-                        ▼
-  ┌─────────────────────────────────────────────────────────┐
-  │  STEP 2: BOOTLOADER (GRUB2)                             │
-  │  • BIOS hands control to GRUB                           │
-  │  • GRUB shows boot menu (which OS / kernel version)     │
-  │  • GRUB loads the Linux kernel into RAM                 │
-  │  • GRUB loads initramfs (temporary mini-filesystem)     │
-  └─────────────────────┬───────────────────────────────────┘
-                        │
-                        ▼
-  ┌─────────────────────────────────────────────────────────┐
-  │  STEP 3: LINUX KERNEL                                   │
-  │  • Kernel decompresses itself                           │
-  │  • Detects all hardware                                 │
-  │  • Mounts the real root filesystem                      │
-  │  • Starts the first process: PID 1                      │
-  └─────────────────────┬───────────────────────────────────┘
-                        │
-                        ▼
-  ┌─────────────────────────────────────────────────────────┐
-  │  STEP 4: systemd (PID 1 — The Mother of All Processes)  │
-  │  • Starts all system services                           │
-  │  • Mounts all filesystems                               │
-  │  • Starts networking, login screens, etc.               │
-  └─────────────────────┬───────────────────────────────────┘
-                        │
-                        ▼
-  ┌─────────────────────────────────────────────────────────┐
-  │  STEP 5: LOGIN                                          │
-  │  • Terminal login (TTY) or Desktop (Display Manager)    │
-  │  • You type your username and password                  │
-  │  • Shell starts (bash/zsh)                              │
-  └─────────────────────────────────────────────────────────┘
-                        │
-                        ▼
-         YOU ARE NOW IN LINUX! 🎉
-
-═══════════════════════════════════════════════════════════════════
-```
-
 ### Real World: Inspect Boot in Linux
 
 ```bash
@@ -393,27 +302,6 @@ graphical.target reached after 8.423s in userspace.
 An Operating System (OS) is software that:
 ![](/img/ch-1/without-an-os.png)
 
-```
-WITHOUT AN OS                    WITH AN OS
-═══════════════════════════════════════════════════════
-  Your app would need to         OS handles everything:
-  know exact memory addresses,
-  exact disk sectors,            ┌─────────────────────┐
-  exact CPU instructions,        │  Your Application   │
-  exact network protocols...     └─────────┬───────────┘
-                                           │ (system calls)
-  IMPOSSIBLE for every app       ┌─────────▼───────────┐
-  to do this!                    │  Operating System   │
-                                 │  (Linux Kernel)     │
-                                 └─────────┬───────────┘
-                                           │
-                                 ┌─────────▼───────────┐
-                                 │     Hardware        │
-                                 │  CPU, RAM, Disk     │
-                                 └─────────────────────┘
-═══════════════════════════════════════════════════════
-```
-
 ### What Does the OS Manage?
 
 | OS Job                 | What It Does                         | Example                                |
@@ -435,48 +323,6 @@ WITHOUT AN OS                    WITH AN OS
 The **kernel** is the core of the OS. Everything else (shell, apps, desktop) is built on top of it.
 
 ![](/img/ch-1/linux-system-layer.png)
-
-```
-LINUX SYSTEM LAYERS
-═══════════════════════════════════════════════════════════════════
-                                                          OUTERMOST
-  ┌─────────────────────────────────────────────────────────────┐
-  │           USER APPLICATIONS                                 │
-  │    (Firefox, VLC, bash, Python, vim, gcc...)                │
-  └─────────────────────┬───────────────────────────────────────┘
-                        │  uses
-  ┌─────────────────────▼───────────────────────────────────────┐
-  │           STANDARD LIBRARIES                                │
-  │    (glibc — the C standard library)                         │
-  │    printf(), malloc(), fopen(), socket()...                 │
-  └─────────────────────┬───────────────────────────────────────┘
-                        │  makes
-  ┌─────────────────────▼───────────────────────────────────────┐
-  │           SYSTEM CALLS (syscalls)                           │
-  │    The bridge between user space and kernel space           │
-  │    read(), write(), open(), fork(), exec(), mmap()...       │
-  └─────────────────────┬───────────────────────────────────────┘
-                        │  enters
-  ┌─────────────────────▼───────────────────────────────────────┐
-  │           LINUX KERNEL (Kernel Space)                       │
-  │                                                             │
-  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────────┐    │
-  │  │ Process  │ │ Memory   │ │ File     │ │  Network     │    │
-  │  │ Manager  │ │ Manager  │ │ System   │ │  Stack       │    │
-  │  └──────────┘ └──────────┘ └──────────┘ └──────────────┘    │
-  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────────┐    │
-  │  │ Device   │ │Security  │ │ IPC      │ │  Scheduler   │    │
-  │  │ Drivers  │ │ (SELinux)│ │          │ │              │    │
-  │  └──────────┘ └──────────┘ └──────────┘ └──────────────┘    │
-  └─────────────────────┬───────────────────────────────────────┘
-                        │  controls
-  ┌─────────────────────▼───────────────────────────────────────┐
-  │           HARDWARE                                          │
-  │    CPU  │  RAM  │  Disk  │  NIC  │  GPU  │  USB             │
-  └─────────────────────────────────────────────────────────────┘
-                                                          INNERMOST
-═══════════════════════════════════════════════════════════════════
-```
 
 ### Real World: Inspect the Kernel
 
@@ -526,39 +372,6 @@ GNU/Linux       → It's GNU tools + Linux kernel
 
 This is a CRITICAL concept that shows up in interviews constantly.
 ![](/img/ch-1/user-space-vs-kernel-space.png)
-
-```
-USER SPACE vs KERNEL SPACE
-═══════════════════════════════════════════════════════════════════
-
-  ┌─────────────────────────────────────────────────────────────┐
-  │                    USER SPACE                               │
-  │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
-  │  │  bash    │  │ firefox  │  │ python   │  │  mysql   │     │
-  │  └──────────┘  └──────────┘  └──────────┘  └──────────┘     │
-  │                                                             │
-  │  • Programs run here with RESTRICTED access                 │
-  │  • Cannot directly touch hardware                           │
-  │  • If it crashes → only that program dies                   │
-  │  • Each process has its own protected memory space          │
-  │                                                             │
-  │  Protection Ring 3 (least privilege)                        │
-  └──────────────────────┬──────────────────────────────────────┘
-                         │   SYSTEM CALL INTERFACE
-                         │   (The controlled gateway)
-  ┌──────────────────────▼──────────────────────────────────────┐
-  │                    KERNEL SPACE                             │
-  │                                                             │
-  │  • Kernel runs here with FULL access to everything          │
-  │  • Can touch CPU registers, RAM, hardware directly          │
-  │  • If it crashes → entire system crashes (kernel panic)     │
-  │  • Trusted code only!                                       │
-  │                                                             │
-  │  Protection Ring 0 (highest privilege)                      │
-  └─────────────────────────────────────────────────────────────┘
-
-═══════════════════════════════════════════════════════════════════
-```
 
 > **🎓 Interview Question:** _"What happens when a user program wants to read a file?"_
 >
@@ -691,59 +504,6 @@ The Linux kernel uses the **GPL v2 (GNU General Public License v2)**. This means
 
 Let's build the complete picture layer by layer:
 ![](/img/ch-1/complete-linux-archecture.png)
-
-```
-COMPLETE LINUX ARCHITECTURE (Bottom to Top)
-═══════════════════════════════════════════════════════════════════════════
-
-LAYER 8 ┌──────────────────────────────────────────────────────────────┐
-        │             DESKTOP ENVIRONMENT / DISPLAY                    │
-        │     GNOME, KDE Plasma, XFCE, i3, Wayland, X11                │
-        │  (What you see and click — the visual layer)                 │
-        └──────────────────────────────────────────────────────────────┘
-LAYER 7 ┌──────────────────────────────────────────────────────────────┐
-        │             USER APPLICATIONS                                │
-        │  Firefox, LibreOffice, VLC, GIMP, VS Code, vim, gcc          │
-        └──────────────────────────────────────────────────────────────┘
-LAYER 6 ┌──────────────────────────────────────────────────────────────┐
-        │             SHELL                                            │
-        │  bash, zsh, fish, sh                                         │
-        │  (Command interpreter — translates your commands)            │
-        └──────────────────────────────────────────────────────────────┘
-LAYER 5 ┌──────────────────────────────────────────────────────────────┐
-        │             SYSTEM LIBRARIES                                 │
-        │  glibc (C library), libm, libpthread, OpenSSL                │
-        │  (Provide ready-made functions for programs)                 │
-        └──────────────────────────────────────────────────────────────┘
-LAYER 4 ┌──────────────────────────────────────────────────────────────┐
-        │             SYSTEM CALL INTERFACE                            │
-        │  open(), read(), write(), fork(), exec(), socket()           │
-        │  (The ONLY legal way for programs to talk to kernel)         │
-        └──────────────────────────────────────────────────────────────┘
-LAYER 3 ┌──────────────────────────────────────────────────────────────┐
-        │             LINUX KERNEL                                     │
-        │  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌──────────┐    │
-        │  │Process │ │Memory  │ │  VFS   │ │Network │ │ Security │    │
-        │  │Manager │ │Manager │ │ (Files)│ │ Stack  │ │(SELinux) │    │
-        │  └────────┘ └────────┘ └────────┘ └────────┘ └──────────┘    │
-        └──────────────────────────────────────────────────────────────┘
-LAYER 2 ┌──────────────────────────────────────────────────────────────┐
-        │             BOOTLOADER                                       │
-        │  GRUB2 (Grand Unified Bootloader version 2)                  │
-        │  (Loads the kernel from disk into RAM)                       │
-        └──────────────────────────────────────────────────────────────┘
-LAYER 1 ┌──────────────────────────────────────────────────────────────┐
-        │             FIRMWARE                                         │
-        │  BIOS / UEFI                                                 │
-        │  (The first software — lives in ROM chip on motherboard)     │
-        └──────────────────────────────────────────────────────────────┘
-LAYER 0 ┌──────────────────────────────────────────────────────────────┐
-        │             HARDWARE                                         │
-        │  CPU  │  RAM  │  Disk  │  NIC  │  GPU  │  USB  │  Monitor    │
-        └──────────────────────────────────────────────────────────────┘
-
-═══════════════════════════════════════════════════════════════════════════
-```
 
 ### Services and Daemons
 
