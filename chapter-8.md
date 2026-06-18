@@ -401,11 +401,11 @@ DHCP — THE "DORA" PROCESS
 
   Your Device                              DHCP Server (often your router)
       │                                              │
-      │── 1. DISCOVER ──────────────────────────►   │  "Is anyone a DHCP server?"
+      │── 1. DISCOVER ──────────────────────────►    │  "Is anyone a DHCP server?"
       │                                              │
-      │  ◄──────────────────── 2. OFFER ──────────  │  "I am! Here's an IP: .50"
+      │  ◄──────────────────── 2. OFFER ──────────   │  "I am! Here's an IP: .50"
       │                                              │
-      │── 3. REQUEST ───────────────────────────►   │  "I'll take that IP!"
+      │── 3. REQUEST ───────────────────────────►    │  "I'll take that IP!"
       │                                              │
       │  ◄──────────────────── 4. ACK ─────────────  │  "Confirmed, it's yours
       │                                              │   for the next 24 hours"

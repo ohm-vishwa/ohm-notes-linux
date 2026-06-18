@@ -43,28 +43,7 @@ PROGRAM vs PROCESS
 
 ## 🎒 What Does Every Process Carry With It?
 
-```
-ANATOMY OF A PROCESS
-═══════════════════════════════════════════════════════════════════
-
-  ┌─────────────────────────────────────────────────────────┐
-  │  PROCESS (PID 4521)                                     │
-  │                                                         │
-  │  PID  → Process ID (unique number)                      │
-  │  PPID → Parent Process ID (who created it)              │
-  │  UID  → Which user owns this process                    │
-  │  STATE → Running, Sleeping, Stopped, Zombie...          │
-  │  PRIORITY/NICE → How much CPU time it deserves          │
-  │                                                         │
-  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────────┐  │
-  │  │ MEMORY SPACE│  │ FILE        │  │  CPU REGISTERS  │  │
-  │  │ (its own,   │  │ DESCRIPTORS │  │  & PROGRAM      │  │
-  │  │  isolated!) │  │ (open files)│  │  COUNTER        │  │
-  │  └─────────────┘  └─────────────┘  └─────────────────┘  │
-  └─────────────────────────────────────────────────────────┘
-
-═══════════════════════════════════════════════════════════════════
-```
+![](/img/ch-7/anatomy-of-a-process.png)
 
 ```bash
 echo $$                       # Your current shell's PID
@@ -114,39 +93,7 @@ THE fork() + exec() PATTERN
 
 ## 🔄 The Process State Machine
 
-```
-PROCESS STATE DIAGRAM
-═══════════════════════════════════════════════════════════════════
-
-                    ┌──────────────┐
-          created   │              │   gets CPU time
-        ───────────►│  RUNNABLE/   │◄───────────────┐
-                    │  READY (R)   │                │
-                    │              │                │
-                    └──────┬───────┘                │
-                           │ scheduled              │
-                           ▼                        │
-                    ┌──────────────┐                │
-                    │   RUNNING    │                │
-                    │   (on CPU)   │────────────────┘
-                    └──────┬───────┘   CPU time slice ends
-                           │
-                needs I/O  │  finishes
-                (disk/net) │  normally
-                           ▼
-                    ┌──────────────┐         ┌──────────────┐
-                    │  SLEEPING/   │ I/O done│   TERMINATED │
-                    │  WAITING (S) │────────►│   (exits)    │
-                    └──────────────┘         └──────┬───────┘
-                                                      │ parent hasn't
-                                                      │ read exit status
-                                                      ▼
-                                               ┌──────────────┐
-                                               │   ZOMBIE (Z) │
-                                               └──────────────┘
-
-═══════════════════════════════════════════════════════════════════
-```
+![](/img/ch-7/process-state-diagram.png)
 
 ## 📋 Process State Codes (seen in `ps`/`top`)
 
