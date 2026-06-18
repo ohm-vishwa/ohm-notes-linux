@@ -28,29 +28,7 @@ What You'll Learn in Chapter 3
 
 Linux was designed from the UNIX era to let **multiple people use the same computer at the same time** — safely, without seeing each other's files or crashing each other's programs.
 
-```
-MULTI-USER CONCEPT
-═══════════════════════════════════════════════════════════════════
-
-                         ONE LINUX SERVER
-                    ┌──────────────────────────┐
-                    │                          │
-   ahmed ──SSH──►   │   /home/ahmed  (private) │
-   fatima ──SSH──►  │   /home/fatima (private) │
-   admin ──SSH──►   │   /home/admin  (private) │
-                    │                          │
-                    │   /etc  (root only edits)│
-                    │   /var/log (root reads)  │
-                    └──────────────────────────┘
-
-  Every user has:
-  • Their own UID (User ID number)
-  • Their own home directory
-  • Their own permissions on every file
-  • Isolation from other users by default
-
-═══════════════════════════════════════════════════════════════════
-```
+![](/img/ch-3/primary-group-vs-secondary-group.png)
 
 This is WHY permissions exist: to make sharing one computer safe. A web server, a database, your personal scripts, and ten other users can all coexist on ONE machine because of the permission system you're about to master.
 
@@ -186,26 +164,7 @@ getent passwd ahmed         # Look up user (works with LDAP/NIS too!)
 
 A **group** lets multiple users share the same permission level on files, without giving them all the SAME account.
 
-```
-PRIMARY GROUP vs SECONDARY GROUPS
-═══════════════════════════════════════════════════════════════════
-
-  User: ahmed
-  ┌─────────────────────────────────────────────┐
-  │  PRIMARY GROUP: ahmed (GID 1000)            │
-  │  • Every new file ahmed creates             │
-  │    automatically belongs to this group      │
-  │  • Defined in /etc/passwd (4th field)       │
-  └─────────────────────────────────────────────┘
-  ┌──────────────────────────────────────────────┐
-  │  SECONDARY GROUPS: sudo, docker, developers  │
-  │  • Extra permissions from being a MEMBER     │
-  │  • Defined in /etc/group                     │
-  │  • A user can belong to MANY secondary groupS│
-  └──────────────────────────────────────────────┘
-
-═══════════════════════════════════════════════════════════════════
-```
+![](/img/ch-3/primary-group-vs-secondary-group.png)
 
 ## 📄 `/etc/group` — The Group Database
 
@@ -969,34 +928,7 @@ CHAPTER 3 — KEY TAKEAWAYS
 
 ## 📌 Quick Reference Cheat Sheet
 
-```
-CHAPTER 3 COMMAND CHEAT SHEET
-═══════════════════════════════════════════════════════════════════════════════
-
-USER MANAGEMENT                GROUP MANAGEMENT               PERMISSIONS
-──────────────────────         ─────────────────────         ───────────────────
-useradd -m -s sh user  Create  groupadd name      Create      chmod 755 f    Numeric
-passwd user             Set pw groupmod -n new old Rename     chmod u+x f    Symbolic
-usermod -aG grp user    Add grp groupdel name      Delete      chown user f   Owner
-usermod -L/-U user      Lock/Unlk gpasswd -a u g   Add to grp  chown u:g f    Owner+Grp
-userdel -r user         Delete  gpasswd -d u g     Remove      chgrp grp f    Group only
-
-IDENTITY                       SPECIAL PERMS                  ACLs
-──────────────────────         ─────────────────────         ───────────────────
-whoami          My name        chmod u+s file  SUID           getfacl file   View ACL
-id              UID/GID/groups chmod g+s dir   SGID           setfacl -m     Add rule
-groups          My groups      chmod +t dir    Sticky         setfacl -x     Remove rule
-who / w         Logged in users find / -perm -4000  Find SUID setfacl -b     Clear ACLs
-
-ROOT ACCESS                    UMASK
-──────────────────────         ─────────────────────
-sudo cmd        Run as root    umask           Show current
-sudo -u user    Run as user    umask 022       Set value
-sudo -i / -s    Root shell     umask -S        Symbolic view
-su - user       Switch user    visudo          Edit sudoers safely
-
-═══════════════════════════════════════════════════════════════════════════════
-```
+![](/img/ch-3/ch-3-quick-commands-cheet-sheet.png)
 
 ## ❓ Chapter 3 Interview Questions
 
