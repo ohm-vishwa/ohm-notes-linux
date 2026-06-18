@@ -580,7 +580,8 @@ sudo ln -sf /usr/bin/python3.12 /usr/bin/python3   # Switch the symlink!
 Remember: Linux has only ONE tree, starting at `/`. So how does a second disk, USB drive, or network folder become accessible?
 
 **Answer: Mounting** — attaching a storage device's filesystem to a specific folder (called a **mount point**) inside the existing tree.
-![](//img/ch-2/the-mounting-concept.png)
+
+![](/img/ch-2/the-mounting-concept.png)
 
 ```
 THE MOUNTING CONCEPT
