@@ -37,6 +37,8 @@ That's it. Everything else is just detail on top of this idea.
 
 Think of the motherboard as a **city**. Every component (CPU, RAM, storage) is a building in that city, connected by roads (called **buses**).
 
+![](/img/motherboard.png)
+
 ```txt
 ┌─────────────────────────────────────────────────────────────────┐
 │                        MOTHERBOARD                              │
