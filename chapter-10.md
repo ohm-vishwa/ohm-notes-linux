@@ -45,42 +45,7 @@ THE CIA TRIAD
 
 ## 🧱 Defense in Depth — Layers, Not a Single Wall
 
-```
-DEFENSE IN DEPTH CONCEPT
-═══════════════════════════════════════════════════════════════════
-
-  Attacker tries to break in
-       │
-       ▼
-  ┌───────────────────┐
-  │ Layer 1: Firewall │  ← Blocks unwanted network traffic
-  └────────┬──────────┘
-           ▼
-  ┌────────────────────────┐
-  │ Layer 2: SSH Hardening │  ← Key-only auth, no root login
-  └────────┬───────────────┘
-           ▼
-  ┌───────────────────────────┐
-  │ Layer 3: Permissions/ACLs │ ← Even if they get in, limited access
-  └────────┬──────────────────┘
-           ▼
-  ┌───────────────────────────┐
-  │ Layer 4: SELinux/AppArmor │ ← Even as a user, processes are CONFINED
-  └────────┬──────────────────┘
-           ▼
-  ┌─────────────────────┐
-  │ Layer 5: Encryption │ ← Even if data is stolen, it's unreadable
-  └────────┬────────────┘
-           ▼
-  ┌──────────────────────────────┐
-  │ Layer 6: Auditing/Monitoring │ ← You DETECT the attempt and respond
-  └──────────────────────────────┘
-
-  No SINGLE layer is perfect — but an attacker must defeat
-  ALL of them to succeed. That's defense in depth.
-
-═══════════════════════════════════════════════════════════════════
-```
+![](/img/ch-10/defense-in-depth-concept.png)
 
 > **🎓 Interview Question:** _"Why isn't a firewall alone considered 'enough' security?"_ **Answer:** A firewall only controls network-level access; it does nothing once traffic is allowed through (e.g., a compromised application, a weak password, an insider threat). Defense in depth assumes any single layer can fail or be bypassed, so multiple independent layers (permissions, MAC systems, encryption, auditing) work together to limit damage.
 
@@ -139,32 +104,7 @@ AUTHENTICATION FACTORS
 
 PAM is a flexible framework that lets Linux decide HOW authentication happens — without each individual application (login, sudo, sshd) needing to implement its own password-checking logic.
 
-```
-PAM CONCEPT
-═══════════════════════════════════════════════════════════════════
-
-  Application (sshd, login, sudo, passwd...)
-       │
-       │  "Please authenticate this user"
-       ▼
-  ┌─────────────────────────────────────────────┐
-  │              PAM FRAMEWORK                  │
-  │                                             │
-  │  Reads /etc/pam.d/<application-name>        │
-  │  Decides WHICH modules to run, and HOW:     │
-  │                                             │
-  │  ┌──────────┐ ┌──────────┐ ┌────────────┐   │
-  │  │ password │ │  2FA     │ │  account   │   │
-  │  │ check    │ │  check   │ │  expiry    │   │
-  │  │ module   │ │  module  │ │  check     │   │
-  │  └──────────┘ └──────────┘ └────────────┘   │
-  └─────────────────────────────────────────────┘
-       │
-       ▼
-  ALLOW or DENY access
-
-═══════════════════════════════════════════════════════════════════
-```
+![](/img/ch-10/pam-concept.png)
 
 ## 📂 PAM Configuration Files
 
