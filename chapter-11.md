@@ -28,33 +28,7 @@ What You'll Learn in Chapter 11
 
 ## 🏢 Two Different Ways to Isolate Workloads
 
-```
-VIRTUALIZATION vs CONTAINERIZATION
-═══════════════════════════════════════════════════════════════════
-
-  VIRTUAL MACHINES                    CONTAINERS
-  ┌──────────────────────────┐        ┌──────────────────────────┐
-  │ App A  │ App B  │ App C  │        │ App A  │ App B  │ App C  │
-  ├────────┼────────┼────────┤        ├────────┴────────┴────────┤
-  │ Guest  │ Guest  │ Guest  │        │ (shares HOST kernel —    │
-  │ OS #1  │ OS #2  │ OS #3  │        │  no separate guest OS!)  │
-  ├────────┴────────┴────────┤        ├──────────────────────────┤
-  │       HYPERVISOR         │        │     CONTAINER ENGINE     │
-  │     (KVM, VMware...)     │        │    (Docker, Podman...)   │
-  ├──────────────────────────┤        ├──────────────────────────┤
-  │       HOST KERNEL        │        │       HOST KERNEL        │
-  ├──────────────────────────┤        ├──────────────────────────┤
-  │       HARDWARE           │        │       HARDWARE           │
-  └──────────────────────────┘        └──────────────────────────┘
-
-  Each VM has its OWN FULL kernel       ALL containers SHARE the
-  → heavier, slower to start,            HOST's single kernel
-    (minutes), strong isolation          → lightweight, fast to start
-                                          (milliseconds), slightly
-                                          weaker isolation than a VM
-
-═══════════════════════════════════════════════════════════════════
-```
+![](/img/ch-11/virtualization.png)
 
 | Aspect            | Virtual Machine                                    | Container                                            |
 | ----------------- | -------------------------------------------------- | ---------------------------------------------------- |
@@ -614,28 +588,7 @@ THE PROBLEM KUBERNETES SOLVES
 
 ## 🧩 Core Kubernetes Concepts
 
-```
-KUBERNETES ARCHITECTURE
-═══════════════════════════════════════════════════════════════════
-
-  ┌─────────────────────────────────────────────────────────┐
-  │                    CONTROL PLANE                        │
-  │   (the "brain" — decides WHAT should run WHERE)         │
-  │                                                         │
-  │   API Server │ Scheduler │ Controller Manager │ etcd    │
-  └───────────────────────┬─────────────────────────────────┘
-                          │
-        ┌─────────────────┼─────────────────┐
-        ▼                 ▼                 ▼
-  ┌──────────┐      ┌──────────┐      ┌──────────┐
-  │  NODE 1  │      │  NODE 2  │      │  NODE 3  │   ← worker machines
-  │  ┌─────┐ │      │  ┌─────┐ │      │  ┌─────┐ │
-  │  │ Pod │ │      │  │ Pod │ │      │  │ Pod │ │   ← groups of containers
-  │  └─────┘ │      │  └─────┘ │      │  └─────┘ │
-  └──────────┘      └──────────┘      └──────────┘
-
-═══════════════════════════════════════════════════════════════════
-```
+![](/img/ch-11/kubernetes.png)
 
 | Concept                                                | What It Is                                                                                                                    |
 | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
