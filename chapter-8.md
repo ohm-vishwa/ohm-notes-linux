@@ -113,30 +113,7 @@ PRIVATE IP RANGES (reserved for internal/home/office networks)
 ═══════════════════════════════════════════════════════════════════
 ```
 
-```
-PUBLIC vs PRIVATE — THE HOME NETWORK ANALOGY
-═══════════════════════════════════════════════════════════════════
-
-           INTERNET
-               │
-       Public IP: 84.23.156.9
-               │
-       ┌───────┴────────┐
-       │   YOUR ROUTER  │  ← NAT translation happens HERE
-       │   (does NAT)   │
-       └───────┬────────┘
-               │
-     ┌─────────┼─────────┐
-     │         │         │
-  192.168.1.10 │   192.168.1.12
-  (laptop)     │   (phone)
-          192.168.1.11
-            (smart TV)
-
-  All 3 devices SHARE one public IP when talking to the internet!
-
-═══════════════════════════════════════════════════════════════════
-```
+![](/img/ch-8/Public-vs-private.png)
 
 ## 🎭 CIDR Notation — Network + Subnet Mask, Compressed
 
@@ -395,25 +372,7 @@ dig google.com OUTPUT EXPLAINED
 
 DHCP (Dynamic Host Configuration Protocol) automatically assigns IP addresses to devices joining a network — without it, you'd have to manually configure every single device's IP!
 
-```
-DHCP — THE "DORA" PROCESS
-═══════════════════════════════════════════════════════════════════
-
-  Your Device                              DHCP Server (often your router)
-      │                                              │
-      │── 1. DISCOVER ──────────────────────────►    │  "Is anyone a DHCP server?"
-      │                                              │
-      │  ◄──────────────────── 2. OFFER ──────────   │  "I am! Here's an IP: .50"
-      │                                              │
-      │── 3. REQUEST ───────────────────────────►    │  "I'll take that IP!"
-      │                                              │
-      │  ◄──────────────────── 4. ACK ─────────────  │  "Confirmed, it's yours
-      │                                              │   for the next 24 hours"
-
-  D-O-R-A = Discover, Offer, Request, Acknowledge
-
-═══════════════════════════════════════════════════════════════════
-```
+![](/img/ch-8/DHCP.png)
 
 ```bash
 # Renew your DHCP lease manually
@@ -557,22 +516,7 @@ TCP vs UDP
 
 ## 🤝 The TCP Three-Way Handshake
 
-```
-TCP THREE-WAY HANDSHAKE
-═══════════════════════════════════════════════════════════════════
-
-  Client                                    Server
-     │                                          │
-     │── SYN (Synchronize) ─────────────────►   │  "Want to connect?"
-     │                                          │
-     │  ◄──────────── SYN-ACK ────────────────  │  "Yes, let's connect!"
-     │                                          │
-     │── ACK (Acknowledge) ─────────────────►   │  "Great, confirmed!"
-     │                                          │
-     │◄═══════ CONNECTION ESTABLISHED ═══════►  │  Now data can flow
-
-═══════════════════════════════════════════════════════════════════
-```
+![](/img/ch-8/tcp-three-way.png)
 
 > **🎓 Interview Question:** _"Why does DNS use UDP but file transfer uses TCP?"_ **Answer:** DNS queries are small and need to be FAST; if a query is lost, the client just retries quickly — the overhead of TCP's handshake and guarantees isn't worth it. File transfers need every byte to arrive correctly and in order, so TCP's reliability is essential even at the cost of more overhead.
 
@@ -590,23 +534,7 @@ ssh -v username@server.com            # Verbose — great for troubleshooting co
 
 ## 🔑 SSH Key-Based Authentication (Much Safer Than Passwords!)
 
-```
-SSH KEY AUTHENTICATION CONCEPT
-═══════════════════════════════════════════════════════════════════
-
-  YOUR COMPUTER                         REMOTE SERVER
-  ┌──────────────────┐                  ┌──────────────────┐
-  │ PRIVATE KEY      │                  │ PUBLIC KEY       │
-  │ (~/.ssh/id_rsa)  │                  │ (~/.ssh/         │
-  │ NEVER share this!│                  │  authorized_keys)│
-  └──────────────────┘                  └──────────────────┘
-
-  The server sends a CHALLENGE that only your PRIVATE key can
-  correctly answer (mathematically), proving it's really you —
-  WITHOUT ever transmitting your private key over the network!
-
-═══════════════════════════════════════════════════════════════════
-```
+![](/img/ch-8/ssh-key.png)
 
 ```bash
 # Generate a new SSH key pair
@@ -710,22 +638,7 @@ LOCAL PORT FORWARDING — REAL USE CASE
 
 A firewall inspects network traffic and decides whether to ALLOW or BLOCK it, based on rules you define (source/destination IP, port, protocol).
 
-```
-FIREWALL CONCEPT
-═══════════════════════════════════════════════════════════════
-  Incoming traffic
-       │
-       ▼
-  ┌──────────────────┐
-  │     FIREWALL     │   Rule: "Allow port 22 (SSH)"     → ✅ ALLOWED
-  │  (checks rules)  │   Rule: "Allow port 80/443 (web)" → ✅ ALLOWED
-  │                  │   Everything else                → ❌ BLOCKED
-  └──────────────────┘
-       │
-       ▼
-  Your server (only receives what's allowed)
-═══════════════════════════════════════════════════════════════
-```
+![](/img/ch-8/firewall-concept.png)
 
 ## 🔧 `ufw` — Uncomplicated Firewall (Ubuntu/Debian)
 
@@ -812,22 +725,7 @@ iptables RULE STRUCTURE
 
 A VPN (Virtual Private Network) creates an encrypted tunnel between your device and a remote network, making it appear as though you're physically connected to that remote network.
 
-```
-VPN CONCEPT
-═══════════════════════════════════════════════════════════════════
-
-  Your Device                                  Company Network
-  ┌──────────┐                                 ┌──────────────┐
-  │          │═══ ENCRYPTED TUNNEL ════════════│              │
-  │          │   (over the public internet)    │ Internal     │
-  └──────────┘                                 │ Resources    │
-                                               └──────────────┘
-
-  To anyone watching the public internet traffic, all they see
-  is ENCRYPTED noise — they cannot read what's inside the tunnel.
-
-═══════════════════════════════════════════════════════════════════
-```
+![](/img/ch-8/vpn-concept.png)
 
 ```bash
 # WireGuard — modern, fast, simple VPN (increasingly the standard)
