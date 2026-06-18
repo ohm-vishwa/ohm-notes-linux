@@ -48,32 +48,6 @@ In Linux, your USB drive, your second hard disk, even a remote network folder �
 
 ![](/img/ch-2/the-linux-file-system-tree.png)
 
-```
-THE LINUX FILESYSTEM TREE
-═══════════════════════════════════════════════════════════════════════
-
-                                  /  (ROOT)
-                                  │
-        ┌──────┬──────┬──────┬──┴───┬──────┬──────┬──────┬──────┐
-        │      │      │      │      │      │      │      │      │
-      /bin   /boot  /dev   /etc   /home  /lib   /media /mnt   /opt
-        │
-        │
-   ┌──────┬──────┬──────┬──────┬──────┬──────┐
-   │      │      │      │      │      │      │
- /proc  /root  /run   /sbin  /srv   /sys   /tmp
-                                              │
-                                       ┌──────┴──────┐
-                                       │             │
-                                     /usr          /var
-                                       │             │
-                              ┌────────┼────────┐    ├── /var/log
-                            /usr/bin /usr/lib /usr/  ├── /var/www
-                                              local   └── /var/spool
-
-═══════════════════════════════════════════════════════════════════════
-```
-
 ## 📐 What is FHS?
 
 **FHS = Filesystem Hierarchy Standard**
@@ -408,32 +382,8 @@ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq   # CPU0's current spe
 This is one of THE most important Linux concepts. Many beginners never truly understand this — but you will, right now.
 
 > **The filename is NOT the file. The filename is just a label pointing to the real file, which is identified by a number called the inode.**
-> ![](/img/ch-2/the-inode-concept.png)
 
-```
-THE INODE CONCEPT
-═══════════════════════════════════════════════════════════════════
-
-  What you SEE:               What ACTUALLY exists:
-  ─────────────                ──────────────────────
-  notes.txt        ────────►   Inode #884521
-                                ┌─────────────────────────┐
-                                │  Inode #884521 contains:│
-                                │  • File size            │
-                                │  • Permissions (rwx)    │
-                                │  • Owner (UID/GID)      │
-                                │  • Timestamps           │
-                                │  • Pointers to DATA     │
-                                │    BLOCKS on disk       │
-                                │  (NOT the filename!)    │
-                                └─────────────────────────┘
-
-  The directory is just a TABLE mapping:
-  "notes.txt"  →  Inode #884521
-  "report.pdf" →  Inode #991022
-
-═══════════════════════════════════════════════════════════════════
-```
+![](/img/ch-2/the-inode-concept.png)
 
 ### Real World: See Inodes
 
@@ -582,28 +532,6 @@ Remember: Linux has only ONE tree, starting at `/`. So how does a second disk, U
 **Answer: Mounting** — attaching a storage device's filesystem to a specific folder (called a **mount point**) inside the existing tree.
 
 ![](/img/ch-2/the-mounting-concept.png)
-
-```
-THE MOUNTING CONCEPT
-═══════════════════════════════════════════════════════════════════
-
-  BEFORE MOUNTING:                AFTER MOUNTING /dev/sdb1 to /mnt/usb:
-
-       /                                    /
-       │                                    │
-   ┌───┼───┐                            ┌───┼───┐
-   │   │   │                            │   │   │
-  etc home mnt                        etc home mnt
-       │    │ (empty folder)               │    │
-                                           │  usb/ ◄── now shows USB
-                                           │     ├── photo.jpg
-       [USB Drive]                         │     └── document.pdf
-       /dev/sdb1                           │
-       (separate filesystem,                    USB drive's files now
-        not yet visible)                         appear INSIDE the tree!
-
-═══════════════════════════════════════════════════════════════════
-```
 
 ### Real World: Mounting Commands
 
