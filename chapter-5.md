@@ -106,26 +106,7 @@ LINUX DISTRO FAMILIES & PACKAGE TOOLS
 
 ## 🌐 What Is a Repository?
 
-```
-REPOSITORY CONCEPT
-═══════════════════════════════════════════════════════════════════
-
-  Your Computer                      Remote Repository Server
-  ┌──────────────┐                   ┌───────────────────────┐
-  │              │   "Do you have    │  nginx-1.24.0.deb     │
-  │  apt install │   nginx?"         │  vim-9.0.deb          │
-  │     nginx    │ ───────────────►  │  git-2.40.deb         │
-  │              │                   │  python3-3.11.deb     │
-  │              │ ◄───────────────  │  ...thousands more... │
-  │              │   Yes! Here it is,│                       │
-  │              │   + dependencies  └───────────────────────┘
-  └──────────────┘
-
-  A repository = a server (or mirror) hosting THOUSANDS of
-  pre-built, tested, signed packages ready to install.
-
-═══════════════════════════════════════════════════════════════════
-```
+![](/img/ch-5/repository-concept.png)
 
 ---
 
@@ -624,25 +605,25 @@ CHAPTER 5 — KEY TAKEAWAYS
 CHAPTER 5 COMMAND CHEAT SHEET
 ═══════════════════════════════════════════════════════════════════════════════
 
-APT (Debian/Ubuntu)            DNF/YUM (RHEL/Fedora)          PACMAN (Arch)
-──────────────────────         ─────────────────────         ───────────────────
-apt update        Refresh      dnf install pkg    Install     pacman -Sy pkg    Install
-apt upgrade        Apply updt  dnf remove pkg     Remove      pacman -Syu       Update all
-apt install pkg    Install     dnf update         Update all  pacman -R pkg     Remove
-apt remove pkg      Remove     dnf search term    Search      pacman -Rs pkg    Remove+deps
-apt purge pkg        Remove+cfg dnf info pkg       Info        pacman -Ss term   Search
-apt autoremove        Clean deps dnf history        Transactions pacman -Q         List installed
-apt search term        Search   dnf history undo N  Rollback    pacman -Qi pkg    Info
-apt list --installed    List    dnf provides file   Find owner  pacman -Qo file   Find owner
+APT (Debian/Ubuntu)                  DNF/YUM (RHEL/Fedora)                 PACMAN (Arch)
+──────────────────────               ─────────────────────                ───────────────────
+apt update        Refresh            dnf install pkg    Install            pacman -Sy pkg    Install
+apt upgrade        Apply updt        dnf remove pkg     Remove             pacman -Syu       Update all
+apt install pkg    Install           dnf update         Update all         pacman -R pkg     Remove
+apt remove pkg      Remove           dnf search term    Search             pacman -Rs pkg    Remove+deps
+apt purge pkg        Remove+cfg      dnf info pkg       Info               pacman -Ss term   Search
+apt autoremove        Clean deps     dnf history        Transactions       pacman -Q         List installed
+apt search term        Search        dnf history undo N  Rollback          pacman -Qi pkg    Info
+apt list --installed    List         dnf provides file   Find owner        pacman -Qo file   Find owner
 
-LOW-LEVEL TOOLS                 REPOSITORIES & SECURITY        SOURCE BUILDS
-──────────────────────         ─────────────────────         ───────────────────
-dpkg -i pkg.deb   Install file /etc/apt/sources.list   APT repos ./configure   Prepare
-dpkg -l           List all     /etc/yum.repos.d/        DNF repos make          Compile
-dpkg -L pkg       Files of pkg dnf repolist             List repos sudo make install Install
-dpkg -S /path     Find owner   rpm --import KEY         Import GPG sudo make uninstall Remove
-rpm -ivh pkg.rpm  Install file gpg --dearmor             APT key import
-rpm -qa           List all     apt-key list / rpm -qa gpg-pubkey*  List keys
+LOW-LEVEL TOOLS                        REPOSITORIES & SECURITY                        SOURCE BUILDS
+──────────────────────                ─────────────────────                         ───────────────────
+dpkg -i pkg.deb   Install file        /etc/apt/sources.list                   APT repos ./configure   Prepare
+dpkg -l           List all            /etc/yum.repos.d/                        DNF repos make          Compile
+dpkg -L pkg       Files of pkg        dnf repolist                             List repos sudo make install Install
+dpkg -S /path     Find owner          rpm --import KEY                         Import GPG sudo make uninstall Remove
+rpm -ivh pkg.rpm  Install file        gpg --dearmor                             APT key import
+rpm -qa           List all            apt-key list / rpm -qa gpg-pubkey*       List keys
 rpm -qf /path     Find owner
 
 ═══════════════════════════════════════════════════════════════════════════════
